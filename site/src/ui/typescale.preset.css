@@ -1,0 +1,46 @@
+/* TYPE SCALE PRESET (scaffold, do not import as-is).
+ *
+ * Copy the parts you need into the app's index.css and fill in a real pairing.
+ * This is a worked example on a 1.25 ratio off a 16px base, not a house font.
+ * Pick the pairing from the app concept; Inter on
+ * the stock scale, and the same two fonts on every app, are both tells.
+ *
+ * Steps:
+ *   1. Drop a self-hosted variable woff2 in public/fonts/ (one file is well
+ *      within SWA Free and faster than fetching Google Fonts).
+ *   2. Declare @font-face for the display face (body can stay a system stack or
+ *      its own self-hosted face).
+ *   3. Expose the families and the --text-* ramp as @theme tokens.
+ *   4. Set the hero with clamp(); it is exempt from the ramp and carries the
+ *      3x-plus display-to-body jump the adjacent steps will not. */
+
+@font-face {
+	font-family: "Display";
+	src: url("/fonts/display.woff2") format("woff2");
+	font-weight: 100 900;
+	font-display: swap;
+}
+
+@theme {
+	--font-display: "Display", system-ui, sans-serif;
+	--font-body: "DM Sans", system-ui, sans-serif;
+
+	/* 1.25 modular ramp off 16px. Re-derive per register: ~1.2 product,
+	 * ~1.333 marketing, ~1.5 to 1.618 editorial. */
+	--text-sm: 0.8rem;
+	--text-base: 1rem;
+	--text-lg: 1.25rem;
+	--text-xl: 1.563rem;
+	--text-2xl: 1.953rem;
+	--text-3xl: 2.441rem;
+	--text-4xl: 3.052rem;
+}
+
+/* Hero headline: fluid, off-ramp, carries the big jump. */
+.hero-type {
+	font-family: var(--font-display);
+	font-size: clamp(2.5rem, 6vw + 1rem, 6rem);
+	line-height: 1.05;
+	letter-spacing: -0.02em;
+	text-wrap: balance;
+}

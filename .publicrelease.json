@@ -1,0 +1,4 @@
+{
+  "allowedIdentities": ["byakugan"],
+  "ignoreGlobs": ["package-lock.json", "test/vectors/", ".min.", "dist/", "staticwebapp.config.json"]
+}
