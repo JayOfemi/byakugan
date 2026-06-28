@@ -1,0 +1,65 @@
+/* UI kit: shared tokens + helper classes for the ui/ kit.
+ * Import once (main.tsx). Plain custom properties, not Tailwind @theme tokens,
+ * so the kit stays portable across apps. Tune the values per app; these are a
+ * starting ramp, not a house constant. */
+
+:root {
+	/* Default surface for ElevationCard (non-glass). */
+	--surface: #ffffff;
+	--surface-border: rgba(15, 23, 42, 0.08);
+
+	/* Layered elevation on one light source. Shadow is tinted to a cool slate,
+	 * never pure black; alpha grows with elevation. Re-tint per app to the
+	 * surface hue. */
+	--shadow-1: 0 1px 2px rgba(15, 23, 42, 0.08);
+	--shadow-2: 0 4px 8px -2px rgba(15, 23, 42, 0.10), 0 2px 4px -2px rgba(15, 23, 42, 0.08);
+	--shadow-3: 0 12px 24px -6px rgba(15, 23, 42, 0.14), 0 4px 8px -4px rgba(15, 23, 42, 0.10);
+}
+
+html.dark {
+	--surface: #141417;
+	--surface-border: rgba(255, 255, 255, 0.08);
+	--shadow-1: 0 1px 2px rgba(0, 0, 0, 0.40);
+	--shadow-2: 0 6px 14px -4px rgba(0, 0, 0, 0.48), 0 2px 4px -2px rgba(0, 0, 0, 0.40);
+	--shadow-3: 0 16px 32px -8px rgba(0, 0, 0, 0.55), 0 4px 10px -4px rgba(0, 0, 0, 0.45);
+}
+
+/* One-shot scroll reveal (pairs with useScrollReveal). Static is the base; the
+ * transition only exists when motion is allowed. Add .is-in when shown. */
+.reveal {
+	opacity: 1;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+	.reveal {
+		opacity: 0;
+		transform: translateY(16px);
+		transition: opacity 220ms ease-out, transform 220ms ease-out;
+		will-change: opacity, transform;
+	}
+	.reveal.is-in {
+		opacity: 1;
+		transform: none;
+	}
+}
+
+/* Element-relative cursor glow layer (pairs with useCursorGlow). Put this class
+ * on a pointer-events-none child of the ref'd element, and set the parent to
+ * position: relative. It paints a soft radial that tracks the cursor and fades
+ * out on leave, modelling a highlight on the surface. Re-tint the rgba to the
+ * app accent. */
+.cursor-glow {
+	position: absolute;
+	inset: 0;
+	pointer-events: none;
+	border-radius: inherit;
+	opacity: var(--glow-opacity, 0);
+	transition: opacity 300ms ease;
+	background: radial-gradient(200px circle at var(--glow-x, 50%) var(--glow-y, 50%), rgba(120, 130, 150, 0.14), transparent 60%);
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.cursor-glow {
+		display: none;
+	}
+}

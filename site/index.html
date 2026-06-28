@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<!-- Editorial pairing: a journalistic serif display over a clean grotesque
+		     body. Interim via Google Fonts; self-host the woff2 before launch
+		     -->
+		<link href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,400..600&family=Hanken+Grotesk:wght@400;500;600&display=swap" rel="stylesheet" />
+
+		<!-- Critical theme styles inlined so they apply before the bundled
+		     stylesheet loads. Mirrors index.css; keep both in sync. -->
+		<style>
+			html { background: #fafaf9; color: #18181b; }
+			html.dark { background: #0a0a0b; color: #f4f4f5; }
+		</style>
+		<!-- Theme set before paint via a same-origin file, so the CSP script-src
+		     needs no 'unsafe-inline'. Blocking on purpose (must run pre-paint). -->
+		<script src="/theme-init.js"></script>
+
+		<title>AI Checker</title>
+		<meta name="description" content="Check whether your writing reads as AI, privately. Your text never leaves this page. Open source and free." />
+
+		<meta property="og:title" content="AI Checker" />
+		<meta property="og:description" content="Check whether your writing reads as AI, privately. Your text never leaves this page. Open source and free." />
+		<meta property="og:type" content="website" />
+		<meta property="og:url" content="https://aichecker.jayofemi.com/" />
+		<meta property="og:image" content="https://aichecker.jayofemi.com/og.png" />
+		<meta property="og:image:width" content="1200" />
+		<meta property="og:image:height" content="630" />
+
+		<meta name="twitter:card" content="summary_large_image" />
+		<meta name="twitter:title" content="AI Checker" />
+		<meta name="twitter:description" content="Check whether your writing reads as AI, privately. Your text never leaves this page. Open source and free." />
+		<meta name="twitter:image" content="https://aichecker.jayofemi.com/og.png" />
+	</head>
+	<body>
+		<div id="root"></div>
+		<script type="module" src="/src/main.tsx"></script>
+	</body>
+</html>

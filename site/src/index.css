@@ -1,0 +1,282 @@
+@import "tailwindcss";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* AI Checker (Byakugan) tokens. Concept: the pale, colorless all-seeing eye, so
+ * the palette is ink-on-paper monochrome with no saturated brand accent, kept
+ * off the generative-AI indigo lane on purpose. Result bands keep semantic
+ * green/amber/red. Type is an editorial pairing, a journalistic serif display
+ * over a clean grotesque body, for a tool that reads and judges prose. */
+@theme {
+	--font-display: 'Newsreader', Georgia, 'Times New Roman', serif;
+	--font-body: 'Hanken Grotesk', system-ui, -apple-system, 'Segoe UI', sans-serif;
+}
+
+html {
+	scroll-behavior: smooth;
+	background: #fafaf9;
+	color: #18181b;
+}
+
+html.dark {
+	background: #0a0a0b;
+	color: #f4f4f5;
+}
+
+html, body {
+	-webkit-font-smoothing: antialiased;
+	font-family: var(--font-body);
+}
+
+/* Tailwind v4 preflight drops the default cursor on buttons; restore it. */
+button:not(:disabled) {
+	cursor: pointer;
+}
+
+/* Ink focus ring (accessibility baseline), theme-aware. */
+:focus-visible {
+	outline: 2px solid #18181b;
+	outline-offset: 2px;
+}
+
+html.dark :focus-visible {
+	outline-color: #e4e4e7;
+}
+
+/* Page content stacks above the fixed grain (z-0) and the eye watermark (z -1). */
+#root {
+	position: relative;
+	z-index: 1;
+}
+
+/* Monochrome controls, centralized so the ink system stays consistent and the
+ * primary action flips cleanly between light and dark. */
+.btn {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	border-radius: 0.625rem;
+	padding: 0.5rem 1.1rem;
+	font-size: 0.875rem;
+	font-weight: 500;
+	line-height: 1.25rem;
+	transition: background-color 140ms ease, border-color 140ms ease, color 140ms ease;
+}
+
+.btn:disabled {
+	opacity: 0.4;
+	cursor: not-allowed;
+}
+
+.btn-primary {
+	background: #18181b;
+	color: #fafafa;
+}
+
+.btn-primary:hover:not(:disabled) {
+	background: #3f3f46;
+}
+
+html.dark .btn-primary {
+	background: #f4f4f5;
+	color: #18181b;
+}
+
+html.dark .btn-primary:hover:not(:disabled) {
+	background: #ffffff;
+}
+
+.btn-ghost {
+	border: 1px solid #d4d4d8;
+}
+
+.btn-ghost:hover:not(:disabled) {
+	background: rgba(24, 24, 27, 0.05);
+	border-color: #a1a1aa;
+}
+
+html.dark .btn-ghost {
+	border-color: #3f3f46;
+}
+
+html.dark .btn-ghost:hover:not(:disabled) {
+	background: rgba(255, 255, 255, 0.06);
+	border-color: #52525b;
+}
+
+/* Underlined ink link. */
+.link {
+	text-decoration: underline;
+	text-underline-offset: 3px;
+	text-decoration-color: #a1a1aa;
+	transition: text-decoration-color 140ms ease;
+}
+
+.link:hover {
+	text-decoration-color: currentColor;
+}
+
+/* Text field surface. */
+.field {
+	width: 100%;
+	border-radius: 0.75rem;
+	border: 1px solid #d4d4d8;
+	background: #ffffff;
+	padding: 1rem;
+	font-size: 1rem;
+	transition: border-color 140ms ease;
+}
+
+.field::placeholder {
+	color: #a1a1aa;
+}
+
+.field:focus {
+	outline: none;
+	border-color: #18181b;
+}
+
+html.dark .field {
+	border-color: #3f3f46;
+	background: #0e0e10;
+}
+
+html.dark .field:focus {
+	border-color: #d4d4d8;
+}
+
+/* Frosted material, reserved for genuine over-content layers. Kept neutral with
+ * no brand tint. ElevationCard opts into this via its glass prop. */
+.glass {
+	background: rgba(255, 255, 255, 0.72);
+	backdrop-filter: blur(12px);
+	-webkit-backdrop-filter: blur(12px);
+	border: 1px solid rgba(0, 0, 0, 0.06);
+}
+
+html.dark .glass {
+	background: rgba(20, 20, 24, 0.6);
+	border: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+/* Thin neutral scrollbar for overflow containers (textareas, lists). */
+.accent-scroll {
+	scrollbar-width: thin;
+	scrollbar-color: rgba(113, 113, 122, 0.5) transparent;
+}
+
+.accent-scroll::-webkit-scrollbar { width: 10px; height: 10px; }
+.accent-scroll::-webkit-scrollbar-track { background: transparent; }
+
+.accent-scroll::-webkit-scrollbar-thumb {
+	background: rgba(113, 113, 122, 0.45);
+	border-radius: 9999px;
+	border: 3px solid transparent;
+	background-clip: padding-box;
+	transition: background 200ms ease;
+}
+
+.accent-scroll::-webkit-scrollbar-thumb:hover {
+	background: rgba(113, 113, 122, 0.7);
+	background-clip: padding-box;
+}
+
+/* The meter fill eases toward its value, unless the user opts out of motion. */
+.meter-fill {
+	transition: width 0.5s ease-out;
+}
+
+/* Byakugan activation, a faint watermark behind the page content (not an
+   overlay) that surfaces for a beat when a check runs. Ink is theme-adaptive,
+   white on dark and a faint near-black on light. */
+.byakugan-scan {
+	position: fixed;
+	inset: 0;
+	/* Sit below all content (just above the page background) so the eye is the
+	   lowest layer everywhere, never over any component. */
+	z-index: -1;
+	pointer-events: none;
+	display: grid;
+	place-items: center;
+	color: #18181b;
+	animation: byakugan-overlay 2.2s ease-out forwards;
+}
+
+html.dark .byakugan-scan {
+	color: #f4f4f5;
+}
+
+.byakugan-scan-svg {
+	width: 100%;
+	height: 100%;
+}
+
+.byakugan-eye {
+	transform-box: fill-box;
+	transform-origin: center;
+	animation: byakugan-eye-open 0.9s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+}
+
+.byakugan-vein {
+	stroke-dasharray: 1;
+	stroke-dashoffset: 1;
+	animation: byakugan-vein 1.1s ease-out forwards;
+}
+
+.byakugan-pulse {
+	transform-box: fill-box;
+	transform-origin: center;
+	animation: byakugan-pulse 1.2s ease-out 1s both;
+}
+
+.byakugan-scanline {
+	position: absolute;
+	left: 0;
+	right: 0;
+	top: 12%;
+	height: 2px;
+	background: linear-gradient(90deg, transparent, currentColor, transparent);
+	opacity: 0;
+	animation: byakugan-scanline 1.1s ease-in-out 1.05s forwards;
+}
+
+@keyframes byakugan-overlay {
+	0% { opacity: 0; }
+	5% { opacity: 0.8; }
+	85% { opacity: 0.8; }
+	100% { opacity: 0; }
+}
+
+@keyframes byakugan-eye-open {
+	0% { transform: scaleY(0.04); opacity: 0; }
+	60% { transform: scaleY(1.04); opacity: 0.055; }
+	100% { transform: scaleY(1); opacity: 0.055; }
+}
+
+@keyframes byakugan-vein {
+	0% { stroke-dashoffset: 1; opacity: 0; }
+	25% { opacity: 0.03; }
+	100% { stroke-dashoffset: 0; opacity: 0.03; }
+}
+
+@keyframes byakugan-pulse {
+	0% { transform: scale(0.5); opacity: 0; }
+	25% { opacity: 0.03; }
+	100% { transform: scale(2.8); opacity: 0; }
+}
+
+@keyframes byakugan-scanline {
+	0% { top: 12%; opacity: 0; }
+	20% { opacity: 0.04; }
+	80% { opacity: 0.04; }
+	100% { top: 88%; opacity: 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+	*, *::before, *::after {
+		animation-duration: 0.01ms !important;
+		animation-iteration-count: 1 !important;
+		transition-duration: 0.01ms !important;
+		scroll-behavior: auto !important;
+	}
+}

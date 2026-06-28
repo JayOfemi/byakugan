@@ -1,0 +1,20 @@
+{
+  "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
+  "name": "io.github.JayOfemi/byakugan",
+  "description": "Private, on-device AI-text analysis including detection, AI-tell spans, and reuse overlap.",
+  "version": "1.0.0",
+  "repository": {
+    "url": "https://github.com/JayOfemi/byakugan",
+    "source": "github"
+  },
+  "packages": [
+    {
+      "registryType": "npm",
+      "identifier": "@jayofemi/ai-checker",
+      "version": "1.0.0",
+      "transport": {
+        "type": "stdio"
+      }
+    }
+  ]
+}
