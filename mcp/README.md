@@ -1,4 +1,4 @@
-# AI Checker (MCP)
+# AI Checker (MCP) [![byakugan MCP server](https://glama.ai/mcp/servers/JayOfemi/byakugan/badges/score.svg)](https://glama.ai/mcp/servers/JayOfemi/byakugan)
 
 AI-text checks inside the AI assistant you already use, on your machine. Add it to your MCP client and it gives that assistant a detection read, the exact phrases that read as AI, a reuse check, and a grammar pass, so the assistant can act on them without your text going to a website. Because the rewriting runs on your own model, a stronger model gives better results than the small one the site runs in the browser. Ships as an MCP server and a TypeScript library.
 
