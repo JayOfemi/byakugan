@@ -1,0 +1,56 @@
+name: Azure Static Web Apps CI/CD
+
+# Release-gated auto-deploy for the site (the family standard for web apps). This
+# repo is a monorepo (site/ + mcp/), so the site uses its own "Site Version" /
+# deploy-site-* convention to stay distinct from the MCP's v* tags. A push to main
+# deploys ONLY when BOTH hold:
+#   1. the tip commit is the "Site Version X.Y.Z" release commit
+#   2. a deploy-site-* annotated tag points at that commit
+# Normal pushes deploy nothing. A plain push of the release commit satisfies both:
+# global push.followTags carries the annotated tag with the branch.
+# workflow_dispatch is the ad-hoc-redeploy fallback (skips both checks).
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  gate:
+    if: github.event_name == 'workflow_dispatch' || startsWith(github.event.head_commit.message, 'Site Version ')
+    runs-on: ubuntu-latest
+    outputs:
+      release: ${{ steps.check.outputs.release }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-tags: true
+
+      - id: check
+        name: Require a deploy-site-* tag on the tip commit
+        run: |
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+            echo "release=true" >> "$GITHUB_OUTPUT"
+          elif git tag --points-at HEAD | grep -q '^deploy-site-'; then
+            echo "release=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "Site Version commit at tip but no deploy-site-* tag points at it - not a release. Skipping."
+            echo "release=false" >> "$GITHUB_OUTPUT"
+          fi
+
+  build_and_deploy:
+    needs: gate
+    if: needs.gate.outputs.release == 'true'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Build and Deploy
+        uses: Azure/static-web-apps-deploy@v1
+        with:
+          azure_static_web_apps_api_token: ${{ secrets.AZURE_STATIC_WEB_APPS_API_TOKEN }}
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
+          action: upload
+          app_location: '/site'
+          api_location: ''
+          output_location: 'dist'
