@@ -7,6 +7,11 @@ updates:
     open-pull-requests-limit: 5
     cooldown:
       default-days: 7
+    # Majors are handled by hand, not auto-PR'd; a stack of major bumps
+    # merging in sequence is what corrupted the lockfile.
+    ignore:
+      - dependency-name: "*"
+        update-types: ["version-update:semver-major"]
   - package-ecosystem: "npm"
     directory: "/mcp"
     schedule:
@@ -14,6 +19,9 @@ updates:
     open-pull-requests-limit: 5
     cooldown:
       default-days: 7
+    ignore:
+      - dependency-name: "*"
+        update-types: ["version-update:semver-major"]
   - package-ecosystem: "github-actions"
     directory: "/"
     schedule:
