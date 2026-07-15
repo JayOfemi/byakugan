@@ -33,6 +33,8 @@ For Claude Desktop, add this to `claude_desktop_config.json` and restart:
 }
 ```
 
+Claude Code users can install it as a plugin instead: `/plugin marketplace add JayOfemi/byakugan`, then `/plugin install ai-checker@ai-checker`.
+
 Then tell your AI "use ai-checker to check this text" and paste what you want checked. Full setup, the tools, and how to verify it are in [mcp/README.md](mcp/README.md).
 
 ## What to expect

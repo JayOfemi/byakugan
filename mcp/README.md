@@ -19,6 +19,13 @@ Add it to your MCP client's config. For Claude Desktop, open Settings, then Deve
 
 Restart the client. For other MCP clients (IDEs and the like), point them at the command `npx -y @jayofemi/ai-checker` over stdio.
 
+Claude Code users can install it as a plugin instead, which registers the server automatically:
+
+```
+/plugin marketplace add JayOfemi/byakugan
+/plugin install ai-checker@ai-checker
+```
+
 ## Use
 
 Ask the assistant in plain language:

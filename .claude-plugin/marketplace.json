@@ -1,0 +1,17 @@
+{
+  "name": "ai-checker",
+  "owner": {
+    "name": "Jay Ofemi",
+    "url": "https://github.com/JayOfemi"
+  },
+  "metadata": {
+    "description": "AI Checker's on-device text-analysis MCP as an installable Claude Code plugin."
+  },
+  "plugins": [
+    {
+      "name": "ai-checker",
+      "source": "./",
+      "description": "Private, on-device AI-text analysis (detection, AI-tell spans, reuse overlap) as an MCP server."
+    }
+  ]
+}
