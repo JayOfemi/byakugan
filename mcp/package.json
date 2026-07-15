@@ -40,13 +40,26 @@
     "prepublishOnly": "npm run build && npm test"
   },
   "keywords": [
-    "ai-detection",
-    "ai-text",
+    "ai-detector",
+    "ai-text-detection",
+    "ai-content-detection",
+    "mcp",
+    "model-context-protocol",
+    "mcp-server",
+    "grammar-checker",
+    "nlp",
     "writing",
+    "typescript",
+    "react",
+    "vite",
+    "tailwindcss",
+    "onnx",
+    "huggingface",
     "privacy",
     "on-device",
-    "mcp",
-    "model-context-protocol"
+    "local-first",
+    "claude",
+    "anthropic"
   ],
   "engines": {
     "node": ">=20"
