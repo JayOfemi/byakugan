@@ -3,7 +3,7 @@ export const Constants = {
 		// The public product brand shown across the site.
 		Name: 'AI Checker',
 		Domain: 'aichecker.jayofemi.com',
-		Version: '1.0.1',
+		Version: '1.0.2',
 		Tagline: 'Check whether your writing reads as AI, privately.',
 		// The one canonical privacy line. Reuse this verbatim wherever the
 		// promise appears so it never drifts into several wordings.
