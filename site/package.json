@@ -9,7 +9,7 @@
 		"preview": "vite preview"
 	},
 	"dependencies": {
-		"@huggingface/transformers": "^4.2.0",
+		"@huggingface/transformers": "^4.3.0",
 		"harper.js": "^2.4.0",
 		"react": "^19.0.0",
 		"react-dom": "^19.0.0"
